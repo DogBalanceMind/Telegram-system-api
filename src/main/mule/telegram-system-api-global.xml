@@ -7,16 +7,15 @@
             </tls:context>
         </http:listener-connection>
     </http:listener-config>
-    <apikit:config name="telegram-system-api-config" api="resource::a33f23d5-1d66-4edc-937f-b275ecc37a3a:telegram-system-api:1.0.0:raml:zip:telegram-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="telegram-system-api-config" api="resource::a33f23d5-1d66-4edc-937f-b275ecc37a3a:telegram-system-api:1.0.1:raml:zip:telegram-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <import doc:name="common-utils-global.xml" doc:id="a518f209-2325-4d4e-9b77-9c1e700f8165" file="common-utils-global.xml" />
     <import doc:name="common-utils-error-handler.xml" doc:id="b1d08eac-eadd-40f5-b2a8-30ecccfa4b9f" file="common-utils-error-handler.xml" />
     <import doc:name="common-utils.xml" doc:id="eae39be1-43ef-49d8-862f-be452906bd64" file="common-utils.xml" />
     <import doc:name="common-utils-logging.xml" doc:id="915e901c-8d0a-4a6d-94ef-981bca633b8d" file="common-utils-logging.xml" />
-	<http:request-config name="HTTPS_Request_configuration_to_telegram_API" doc:name="HTTP Request configuration" doc:id="1f6b7bac-c765-4459-8ba5-d320fa27dc80" basePath="${telegramAPI.basePath}${telegramAPI.token}">
-		<http:request-connection host="${telegramAPI.host}" protocol="HTTPS"/>
-	</http:request-config>
-	<http:request-config name="HTTPS_Request_configuration_to_messenger_bot_process_API" doc:name="HTTP Request configuration" doc:id="1da5e5c9-6ca2-40e2-9c56-55e064f6ab48" basePath="${messengerBotProcessAPI.basePath}">
-		<http:request-connection protocol="HTTPS" host="${messengerBotProcessAPI.host}" port="${messengerBotProcessAPI.port}" />
-	</http:request-config>
-
+    <http:request-config name="HTTPS_Request_configuration_to_telegram_API" doc:name="HTTP Request configuration" doc:id="1f6b7bac-c765-4459-8ba5-d320fa27dc80" basePath="${telegramAPI.basePath}${telegramAPI.token}">
+        <http:request-connection host="${telegramAPI.host}" protocol="HTTPS" />
+    </http:request-config>
+    <http:request-config name="HTTPS_Request_configuration_to_messenger_bot_process_API" doc:name="HTTP Request configuration" doc:id="1da5e5c9-6ca2-40e2-9c56-55e064f6ab48" basePath="${messengerBotProcessAPI.basePath}">
+        <http:request-connection protocol="HTTPS" host="${messengerBotProcessAPI.host}" port="${messengerBotProcessAPI.port}" />
+    </http:request-config>
 </mule>

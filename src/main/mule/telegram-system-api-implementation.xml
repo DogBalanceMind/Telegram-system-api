@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="sendMessageSubFlow" doc:id="ac190701-10bb-4982-b7bd-f81b46b0c90a" >
+		<http:request method="POST" doc:name="sendMessageToTelegramAPI" doc:id="26496350-5b5d-4587-ab33-5393f6c5143a" config-ref="HTTPS_Request_configuration_to_telegram_API" path="/sendMessage">
+			<http:body ><![CDATA[#[{
+	'chat_id': payload.identifier,
+	text: payload.message
+}]]]></http:body>
+		</http:request>
+		<set-variable value="204" doc:name="set204HttpStatus" doc:id="d1bc8aad-1fe5-4cbd-8e80-370860d1b998" variableName="httpStatus"/>
+	</sub-flow>
+	<sub-flow name="webhookSubFlow" doc:id="8617df61-9f9f-482d-becc-c99df5b84e8d" >
+		<http:request method="POST" doc:name="sentToMessengerBotProcessAPI" doc:id="8d249295-5d77-4e8e-a3f9-53dc13f1c7b9" config-ref="HTTPS_Request_configuration_to_messenger_bot_process_API" path="/webhook">
+			<http:body ><![CDATA[#[{
+	messenger: 'telegram',
+	identifier: payload.message.from.id,
+	message: payload.message.text
+}]]]></http:body>
+		</http:request>
+		<set-variable value="204" doc:name="set204HttpStatus" doc:id="fad739eb-7289-40e8-87b3-4b0bb89b7d08" variableName="httpStatus" />
+	</sub-flow>
+</mule>

@@ -7,7 +7,7 @@
             </tls:context>
         </http:listener-connection>
     </http:listener-config>
-    <apikit:config name="telegram-system-api-config" api="resource::a33f23d5-1d66-4edc-937f-b275ecc37a3a:telegram-system-api:1.0.1:raml:zip:telegram-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="telegram-system-api-config" api="resource::a33f23d5-1d66-4edc-937f-b275ecc37a3a:telegram-system-api:1.0.1:raml:zip:telegram-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus"/>
     <import doc:name="common-utils-global.xml" doc:id="a518f209-2325-4d4e-9b77-9c1e700f8165" file="common-utils-global.xml" />
     <import doc:name="common-utils-error-handler.xml" doc:id="b1d08eac-eadd-40f5-b2a8-30ecccfa4b9f" file="common-utils-error-handler.xml" />
     <import doc:name="common-utils.xml" doc:id="eae39be1-43ef-49d8-862f-be452906bd64" file="common-utils.xml" />

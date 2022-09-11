@@ -9,12 +9,17 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<choice doc:name="Choice" doc:id="0733a07b-7340-4805-b419-0a4e34cdd471" >
 			<when expression='#[payload.buttons == "add"]'>
 				<http:request method="POST" doc:name="sendMessageToTelegramAPIWithButtons" doc:id="26496350-5b5d-4587-ab33-5393f6c5143a" config-ref="HTTPS_Request_configuration_to_telegram_API" path="/sendMessage">
-			<http:body><![CDATA[#[{
+			<http:body><![CDATA[#[%dw 2.0
+import * from dw::core::Arrays
+output application/json
+---
+{
 	'chat_id': payload.identifier,
 	"reply_markup":{
-        "keyboard": [
-            payload.keys
-        ],
+        "keyboard": if (sizeOf(payload.keys) > 2)
+						payload.keys divideBy 2
+					else
+						[payload.keys],
         "resize_keyboard": true
     },
 	text: payload.message

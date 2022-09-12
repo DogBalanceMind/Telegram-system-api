@@ -16,8 +16,8 @@ output application/json
 {
 	'chat_id': payload.identifier,
 	"reply_markup":{
-        "keyboard": if (sizeOf(payload.keys) > 2)
-						payload.keys divideBy 2
+        "keyboard": if (payload.keysInRow?)
+						payload.keys divideBy payload.keysInRow
 					else
 						[payload.keys],
         "resize_keyboard": true

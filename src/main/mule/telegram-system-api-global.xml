@@ -2,9 +2,9 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
     <http:listener-config name="telegram-system-api-httpsListenerConfig">
         <http:listener-connection host="${listener.https.host}" port="${listener.https.port}" protocol="HTTPS">
-            <tls:context>
-                <tls:key-store type="jks" keyPassword="${listener.https.tls.keyPassword}" password="${listener.https.tls.password}" path="keystore.jks" alias="mule" />
-            </tls:context>
+			<tls:context >
+				<tls:key-store type="jks" path="tls/keystore.jks" alias="mule" keyPassword="${listener.https.tls.keyPassword}" password="${listener.https.tls.password}"/>
+			</tls:context>
         </http:listener-connection>
     </http:listener-config>
     <apikit:config name="telegram-system-api-config" api="resource::a33f23d5-1d66-4edc-937f-b275ecc37a3a:telegram-system-api:1.0.2:raml:zip:telegram-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
@@ -13,9 +13,13 @@
     <import doc:name="common-utils.xml" doc:id="eae39be1-43ef-49d8-862f-be452906bd64" file="common-utils.xml" />
     <import doc:name="common-utils-logging.xml" doc:id="915e901c-8d0a-4a6d-94ef-981bca633b8d" file="common-utils-logging.xml" />
     <http:request-config name="HTTPS_Request_configuration_to_telegram_API" doc:name="HTTP Request configuration" doc:id="1f6b7bac-c765-4459-8ba5-d320fa27dc80" basePath="${telegramAPI.basePath}${telegramAPI.token}">
-        <http:request-connection host="${telegramAPI.host}" protocol="HTTPS" />
+        <http:request-connection host="${telegramAPI.host}" protocol="HTTPS"/>
     </http:request-config>
     <http:request-config name="HTTPS_Request_configuration_to_messenger_bot_process_API" doc:name="HTTP Request configuration" doc:id="1da5e5c9-6ca2-40e2-9c56-55e064f6ab48" basePath="${messengerBotProcessAPI.basePath}">
-        <http:request-connection protocol="HTTPS" host="${messengerBotProcessAPI.host}" port="${messengerBotProcessAPI.port}" />
+        <http:request-connection protocol="HTTPS" host="${messengerBotProcessAPI.host}" port="${messengerBotProcessAPI.port}" tlsContext="TLS_Context"/>
     </http:request-config>
+    <tls:context name="TLS_Context" doc:name="TLS Context" doc:id="e01803ed-612b-4b5b-829f-82e0c572d72e" >
+		<tls:trust-store path="tls/truststore.jks" password="${listener.https.tls.password}" type="jks" />
+		<tls:key-store type="jks" path="tls/keystore.jks" alias="mule" keyPassword="${listener.https.tls.keyPassword}" password="${listener.https.tls.password}" />
+	</tls:context>
 </mule>

@@ -52,7 +52,7 @@ output application/json
 		<http:request method="POST" doc:name="sentToMessengerBotProcessAPI" doc:id="8d249295-5d77-4e8e-a3f9-53dc13f1c7b9" config-ref="HTTPS_Request_configuration_to_messenger_bot_process_API" path="/webhook">
 			<http:body ><![CDATA[#[{
 	messenger: 'telegram',
-	identifier: payload.message.from.id,
+	identifier: payload.message.from.id as String,
 	message: payload.message.text
 }]]]></http:body>
 		</http:request>

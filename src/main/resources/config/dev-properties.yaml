@@ -1,0 +1,19 @@
+listener:
+  basePath: "/telegram-sa/*"
+  console: "/console/*"
+  https:
+    host: "0.0.0.0"
+    port: "8085"
+    tls:
+      keyPassword: vfrcbv2142
+      password: vfrcbv2142
+      
+telegramAPI:
+  host: "api.telegram.org"
+  basePath: "/bot"
+  token: 
+  
+messengerBotProcessAPI:
+  host: "localhost"
+  port: "8084"
+  basePath: "/messenger-bot-pa"
